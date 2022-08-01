@@ -11,7 +11,7 @@ from RL_PPA_monitor import RLPPAMonitor
 def train():
     models_dir = f"models/PPO"
     logdir = "logs"
-    TIMESTEPS = 64
+    TIMESTEPS = 256
     env = SubGoalEnv(env="obstacle_env", render_subactions=False, rew_type="normal")
     env_vec = SubprocVecEnv([lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
