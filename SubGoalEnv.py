@@ -130,7 +130,11 @@ class SubGoalEnv(gym.Env):
         # todo: refactor
         reward = -2
         done = False
-        if self.env_rew in ["meta_world_rew","normal",""]:
+        if self.env_rew in ["normal",""]:
+            if info['success']:
+                return re, True
+            return re, False
+        if self.env_rew in ["meta_world_rew"]:
             return re, done
         if self.env_rew == "rew1":
             if info['success']:
