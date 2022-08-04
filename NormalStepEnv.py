@@ -68,6 +68,7 @@ class NormalStepEnv(gym.Env):
         self.reward_type = reward_type
 
     def reset(self):
+        self.number_steps = 0
         if self.env_name == "obstacle_env":
             return self.new_obs(self.env.reset())
         self.cur_task_index += 1
@@ -75,22 +76,21 @@ class NormalStepEnv(gym.Env):
             self.cur_task_index = 0
         self.env.set_task(self.tasks[self.cur_task_index])
         obs = self.env.reset()
-        self.number_steps = 0
         return self.new_obs(obs)
 
     def step(self, action):
+        self.number_steps += 1
         obs, reward, done, info = self.env.step(action)
+        if self.number_steps >= self._max_episode_length:
+            info["TimeLimit.truncated"] = not done
+            done = True
         if self.env_name == "obstacle_env":
             return self.new_obs(obs), reward, done, info
         reward = -1
         if info["success"]:
             done = True
             reward = 1000
-        self.number_steps += 1
         obs = self.new_obs(obs)
-        if self.number_steps >= self._max_episode_length:
-            info["TimeLimit.truncated"] = not done
-            done = True
         return obs, reward, done, info
 
     def new_obs(self, obs):

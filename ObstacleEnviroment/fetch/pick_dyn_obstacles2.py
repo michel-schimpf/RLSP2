@@ -188,9 +188,9 @@ class FetchPickDynObstaclesEnv2(robot_env.RobotEnv, gym.utils.EzPickle):
         obs, r, d, i = super(FetchPickDynObstaclesEnv2, self).step(action)
         d = i["is_success"]
         info = {'success':d}
-        reward = -1
+        reward = 0
         if d:
-            reward = 0
+            reward = 1
         return obs, reward, d, info
 
     # GoalEnv methods
