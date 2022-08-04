@@ -2,7 +2,7 @@
 from typing import Tuple
 
 from stable_baselines3 import PPO
-from ObstacleEnviroment.fetch.pick_dyn_obstacles2 import FetchPickDynObstaclesEnv2
+from NormalStepEnv import NormalStepEnv
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.vec_env import VecMonitor
 from RL_PPA_monitor import RLPPAMonitor
@@ -12,7 +12,7 @@ def train():
     models_dir = f"models/PPO"
     logdir = "logs"
     TIMESTEPS = 2048
-    env = FetchPickDynObstaclesEnv2()
+    env = NormalStepEnv(env_name="obstacle_env")
     env_vec = SubprocVecEnv([lambda: env,  lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
