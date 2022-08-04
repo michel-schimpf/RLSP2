@@ -11,24 +11,24 @@ from RL_PPA_monitor import RLPPAMonitor
 def train():
     models_dir = f"models/PPO"
     logdir = "logs"
-    TIMESTEPS = 64
+    TIMESTEPS = 2048
     env = FetchPickDynObstaclesEnv2()
-    env_vec = SubprocVecEnv([lambda: env, # lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env, lambda: env,
-                             # lambda: env, lambda: env, lambda: env,  # lambda: env,
+    env_vec = SubprocVecEnv([lambda: env,  lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env, lambda: env,
+                             lambda: env, lambda: env, lambda: env,  # lambda: env,
                              ])
     env_vec = RLPPAMonitor(env_vec, "logs/PPO_0)", )
     # right batch_size: https://github.com/llSourcell/Unity_ML_Agents/blob/master/docs/best-practices-ppo.md
