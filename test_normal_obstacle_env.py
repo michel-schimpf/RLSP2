@@ -1,7 +1,7 @@
 import time
-from ObstacleEnviroment.fetch.pick_dyn_obstacles2 import FetchPickDynObstaclesEnv2
+from NormalStepEnv import NormalStepEnv
 
-env = FetchPickDynObstaclesEnv2()
+env = NormalStepEnv(env_name="obstacle_env")
 obs = env.reset()
 num_suc = 0
 print("----------------------\nTest 5 random actions:\n----------------------")
