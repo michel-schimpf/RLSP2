@@ -12,7 +12,7 @@ def train():
     models_dir = f"models/PPO"
     logdir = "logs"
     TIMESTEPS = 2048
-    env = SubGoalEnv("pick-place-v2", rew_type="meta_world_rew")
+    env = SubGoalEnv("pick-place-v2", rew_type="rew1")#"meta_world_rew")
     env_vec = SubprocVecEnv([lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
@@ -30,7 +30,7 @@ def train():
                              lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env,  # lambda: env,
                              ])
-    env_vec = RLPPAMonitor(env_vec, "logs/PPO_0)", )
+    env_vec = RLPPAMonitor(env_vec, "logs/PPO_0", )
     # right batch_size: https://github.com/llSourcell/Unity_ML_Agents/blob/master/docs/best-practices-ppo.md
     # TODO what are right paramters
     model = PPO('MlpPolicy', env_vec, verbose=1, tensorboard_log=logdir, n_steps=TIMESTEPS,
