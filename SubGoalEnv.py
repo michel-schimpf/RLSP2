@@ -286,11 +286,11 @@ class SubGoalEnv(gym.Env):
             # print("-expected_positions:", _get_expected_positions(gripper_pos, sub_actions))
             if sub_actions is None:
                 sub_actions = [[0,0,0,-1]]
-            for i,a in enumerate(sub_actions):
+            for i, a in enumerate(sub_actions):
                 # print("bevor",pretty_obs(obs['observation']))
-                last_grip_pos = obs['observation'][:3]
+                # last_grip_pos = obs['observation'][:3]
                 obs, reward, done, info = self.env.step(a)
-                new_grip_pos = obs['observation'][:3]
+                # new_grip_pos = obs['observation'][:3]
                 # print("-", i, ": a:", a, "gripper_pos:", self._change_obs(obs)[:3])
                 # if _collided(last_grip_pos,a,new_grip_pos):
                 #     print("!!!Collided!!!!!")

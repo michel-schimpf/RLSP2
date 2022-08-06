@@ -194,7 +194,7 @@ class FindTrajectory:
         # Create start  node
         start_node = Node(None, self.start_pos)
         self.safety_margin = self.og_safety_margin
-        if self.obstacles.collides_at_time_step(start_node.pos, 0, self.safety_margin):
+        if self.obstacles and self.obstacles.collides_at_time_step(start_node.pos, 0, self.safety_margin):
             # print("collides at start Node")
             self.safety_margin = 0.02
 
