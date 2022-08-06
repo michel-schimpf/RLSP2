@@ -12,7 +12,7 @@ def train():
     models_dir = f"models/PPO"
     logdir = "logs"
     TIMESTEPS = 2048
-    env = SubGoalEnv("pick-place-v2", rew_type="rew1")#"meta_world_rew")
+    env = SubGoalEnv("pick-place-v2", rew_type="meta_world_rew")
     env_vec = SubprocVecEnv([lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
                              lambda: env, lambda: env, lambda: env, lambda: env,
