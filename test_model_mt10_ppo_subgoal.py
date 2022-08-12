@@ -22,14 +22,14 @@ def execute():
 
     env_vec = SubprocVecEnv(env_array)
     env = make_env("pick-place-v2","rew1",10,2)()
-    env = VecVideoRecorder(env_vec, './video', record_video_trigger=lambda x: x == 0, name_prefix="bla",)
+    # env = VecVideoRecorder(env_vec, './video', record_video_trigger=lambda x: x == 0, name_prefix="bla",)
 
     models_dir = "models/PPO"
     model_path = f"{models_dir}/846692352.zip"
     model = PPO.load(model_path, env=env)
     print(model.policy)
 
-    episodes = 2
+    episodes = 10
     mean_rew_all_tasks = 0
     num_success = 0
     mean_steps = 0
@@ -41,7 +41,7 @@ def execute():
         steps = 0
         total_reward = 0
         success = False
-        for _ in range(10):
+        while not done:
             # env.render()
             action, _states = model.predict(obs, deterministic=True)
             # print("obs", pretty_obs(obs))
@@ -57,11 +57,11 @@ def execute():
             # print("reward:", reward)
             steps += 1
             total_reward += reward
-            # if info['success']:
-            #     success = True
+            if info['success']:
+                success = True
             # print()
-            # if done and success:
-            #     num_success += 1
+            if done and success:
+                num_success += 1
         # print("total reward:",total_reward)
         # print("mean reward:",total_reward/steps)
         # print("finished after: ", steps, " steps \n")
