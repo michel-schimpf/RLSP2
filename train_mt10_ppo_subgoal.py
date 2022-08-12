@@ -39,17 +39,10 @@ def train():
     # create or load model
     model = PPO('MlpPolicy', env_vec, verbose=1, tensorboard_log=logdir, n_steps=timestamps,
                 batch_size=batch_size, )
-<<<<<<< HEAD
-    model = PPO.load("models/PPO3/538804224.zip", env=env_vec,tensorboard_log=logdir)
+    model = PPO.load("models/PPO3/538804224.zip", env=env_vec, tensorboard_log=logdir)
 
     # safe models
     i = 757
-=======
-    # model = ALGO.load("models/PPO3/15360000.zip", env=env_vec,tensorboard_log=logdir)
-
-    # safe models
-    i = 0
->>>>>>> a4d74ff38c5766bc035287b9886fcea32b40c418
     while True:
         print(i)
         i += 1

@@ -9,10 +9,11 @@ for i in range(20):
     obs = env.reset()
     print(obs)
     goal = env.pretty_obs(obs)['goal']
-    # print("goal:",goal)
+    print("goal:",goal)
     # print("gripper_pos:",obs[:3])
     action_to_reach_goal = env.scale_env_pos_to_action(goal)
-    # print("action:",action_to_reach_goal)
+    print("action:",action_to_reach_goal)
+
     action_to_reach_goal.append(0)
     obs, r, d, i = env.step(action_to_reach_goal)
     print("reward:",r)

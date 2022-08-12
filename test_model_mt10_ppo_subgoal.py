@@ -1,0 +1,84 @@
+# from helper import pretty_obs_subgoal
+import time
+
+import gym
+from stable_baselines3 import PPO
+import metaworld
+from SubGoalEnv import SubGoalEnv,pretty_obs
+from stable_baselines3.common.vec_env import SubprocVecEnv
+from stable_baselines3.common.utils import get_device
+from stable_baselines3.common.vec_env import VecVideoRecorder
+
+def execute():
+    print(get_device())
+    number_envs_per_task = [1]*10
+    mt10 = metaworld.MT10()
+    env_array = []
+
+    for i, (name, _) in enumerate(mt10.train_classes.items()):
+        print(i,name)
+        for _ in range(number_envs_per_task[i]):
+            env_array.append(make_env(name, "rew1", 10, i))
+
+    env_vec = SubprocVecEnv(env_array)
+    env = make_env("pick-place-v2","rew1",10,2)()
+    env = VecVideoRecorder(env_vec, './video', record_video_trigger=lambda x: x == 0, name_prefix="bla",)
+
+    models_dir = "models/PPO"
+    model_path = f"{models_dir}/846692352.zip"
+    model = PPO.load(model_path, env=env)
+    print(model.policy)
+
+    episodes = 2
+    mean_rew_all_tasks = 0
+    num_success = 0
+    mean_steps = 0
+    for ep in range(episodes):
+        print("\n---------\nepisode:", ep)
+        obs = env.reset()
+
+        done = False
+        steps = 0
+        total_reward = 0
+        success = False
+        for _ in range(10):
+            # env.render()
+            action, _states = model.predict(obs, deterministic=True)
+            # print("obs", pretty_obs(obs))
+            # print("action:", action)
+            # print("intended subgoal:", env.scale_action_to_env_pos(action))
+            obs, reward, done, info = env.step(action)
+            # print("ob", pretty_obs(obs))
+            # print("goal:", pretty_obs(obs)["goal"])
+            # obj = pretty_obs(obs)['first_obj']
+            # distance_to_subgoal = np.linalg.norm(obs[:3] - obj[:3])
+            # print("distance to object:", distance_to_subgoal)
+            # print("info",info)
+            # print("reward:", reward)
+            steps += 1
+            total_reward += reward
+            # if info['success']:
+            #     success = True
+            # print()
+            # if done and success:
+            #     num_success += 1
+        # print("total reward:",total_reward)
+        # print("mean reward:",total_reward/steps)
+        # print("finished after: ", steps, " steps \n")
+        mean_rew_all_tasks += total_reward
+        mean_steps += steps
+    print("mean_tot_rew:",mean_rew_all_tasks/episodes)
+    print("mean_steps:", mean_steps/episodes)
+    print("success rate:",num_success/episodes)
+
+
+def make_env(name,rew_type,number_of_one_hot_tasks, one_hot_task_index):
+
+    def _init():
+        return SubGoalEnv(env=name, rew_type=rew_type, number_of_one_hot_tasks=number_of_one_hot_tasks,
+                          one_hot_task_index=one_hot_task_index,render_subactions=False)
+    return _init
+
+
+if __name__ == '__main__':
+    execute()

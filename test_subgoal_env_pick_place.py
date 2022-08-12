@@ -1,13 +1,13 @@
 import time
 
 from SubGoalEnv import SubGoalEnv
-env = SubGoalEnv("pick-place-v2", render_subactions=False, rew_type="rew1")
+env = SubGoalEnv("pick-place-v2", render_subactions=True, rew_type="meta_world_rew")
 
 total_reach = 0
 for i in range(50):
     obs = env.reset()
     total_reward = 0
-    print("----------------------\nTest pick random actions:\n----------------------")
+    print("----------------------\nTest pick object actions:\n----------------------")
     # print(obs)
     goal = env.pretty_obs(obs)['first_obj']
     print("obs:", env.pretty_obs(obs))
@@ -20,7 +20,7 @@ for i in range(50):
     print("info", i1)
     print("reward:", r)
     total_reward += r
-    print("----------------------\nTest drop random actions:\n----------------------")
+    print("----------------------\nTest hold actions:\n----------------------")
     # print(pretty_obs(obs))
     goal = env.pretty_obs(obs)['goal']
     # print("goal:", goal)
