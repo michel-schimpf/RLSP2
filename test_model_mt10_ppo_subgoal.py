@@ -21,13 +21,13 @@ def execute():
             env_array.append(make_env(name, "rew1", 10, i))
 
     env_vec = SubprocVecEnv(env_array)
-    env = make_env("pick-place-v2","rew1",10,2)()
+    env = make_env("pick-place-v2","rew1",10,)()
     # env = VecVideoRecorder(env_vec, './video', record_video_trigger=lambda x: x == 0, name_prefix="bla",)
 
     models_dir = "models/PPO"
     model_path = f"{models_dir}/846692352.zip"
     model = PPO.load(model_path, env=env)
-    print(model.policy)
+
 
     episodes = 10
     mean_rew_all_tasks = 0

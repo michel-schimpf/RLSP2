@@ -8,8 +8,8 @@ plt.style.use("plots/subfigure.mplstyle")
 
 
 number_rows = 5000000
-values_combined = 100
-monitor = np.loadtxt("plots/normal_obstacle_monitor.csv", delimiter=',', skiprows=2, max_rows=number_rows,usecols=(0,1,2,4))
+values_combined = 300
+monitor = np.loadtxt("plots/normal.csv", delimiter=',', skiprows=2, max_rows=number_rows,usecols=(0,1,2,4))
 
 
 fig, ax = plt.subplots(constrained_layout=True)
@@ -36,10 +36,10 @@ average_success_rates = np.average(successes, axis=1)
 average_success_rates = np.insert(average_success_rates, 0, 0)
 
 
-# # delete some values to make it more spiky
-# for _ in range(4):
-#     x_intervals = np.delete(x_intervals, np.arange(0, x_intervals.size, 2))
-#     average_success_rates = np.delete(average_success_rates, np.arange(0, len(average_success_rates), 2))
+# delete some values to make it more spiky
+for _ in range(2):
+    x_intervals = np.delete(x_intervals, np.arange(0, x_intervals.size, 2))
+    average_success_rates = np.delete(average_success_rates, np.arange(0, len(average_success_rates), 2))
 
 print(max(average_success_rates))
 ax.plot(x_intervals, average_success_rates, linewidth=1.3, label="Success Rate")
