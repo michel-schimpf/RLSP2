@@ -7,7 +7,7 @@ import numpy as np
 import gym
 import metaworld
 from gym.spaces import Box
-from GripperControl import reach, pick, place
+from GripperControl import reach
 from metaworld.envs import reward_utils
 from collections import OrderedDict
 
