@@ -47,7 +47,7 @@ def execute():
     # env = VecVideoRecorder(env_vec, './video', record_video_trigger=lambda x: x == 0, name_prefix="bla",)
 
     models_dir = "models/PPO"
-    model_path = f"{models_dir}/52125696.zip"
+    model_path = f"{models_dir}/52125696"
     model = PPO.load(model_path, env=env)
 
     episodes = 100
